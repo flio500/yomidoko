@@ -1,5 +1,5 @@
 const STORAGE_KEY = "yomidoko-manga-v1";
-const VIEW_KEY = "yomidoko-view-count-v1";
+const VIEW_KEY = "yomidoko-view-mode-v1";
 
 const defaultMangaItems = [
   {
@@ -79,39 +79,62 @@ const defaultMangaItems = [
 const grid = document.querySelector("#mangaGrid");
 const template = document.querySelector("#mangaCardTemplate");
 const buttons = document.querySelectorAll(".segment");
+const appSettingsButton = document.querySelector("#appSettingsButton");
+const libraryPanel = document.querySelector("#libraryPanel");
+const libraryList = document.querySelector("#libraryList");
+const addMangaButton = document.querySelector("#addMangaButton");
+const summaryText = document.querySelector("#summaryText");
 
 let mangaItems = loadItems();
-let currentCount = loadViewCount();
+let currentView = loadViewMode();
 
 function loadItems() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
-    if (!Array.isArray(saved) || saved.length !== defaultMangaItems.length) {
+    if (!Array.isArray(saved)) {
       return structuredClone(defaultMangaItems);
     }
 
-    return defaultMangaItems.map((item, index) => ({
-      ...item,
-      ...saved[index],
-      icon: item.icon,
-      total: Math.max(1, Number(saved[index]?.total ?? item.total) || item.total),
-    }));
+    return saved.map((savedItem, index) => {
+      const fallback = defaultMangaItems[index] || createMangaItem(index + 1);
+
+      return {
+        ...fallback,
+        ...savedItem,
+        icon: savedItem.icon || fallback.icon,
+        total: Math.max(1, Number(savedItem.total ?? fallback.total) || fallback.total),
+      };
+    });
   } catch {
     return structuredClone(defaultMangaItems);
   }
 }
 
-function loadViewCount() {
-  return localStorage.getItem(VIEW_KEY) === "9" ? 9 : 4;
+function loadViewMode() {
+  const saved = localStorage.getItem(VIEW_KEY);
+  return saved === "list" || saved === "9" ? "list" : "grid";
 }
 
 function saveItems() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(mangaItems));
 }
 
-function saveViewCount(count) {
-  localStorage.setItem(VIEW_KEY, String(count));
+function saveViewMode(view) {
+  localStorage.setItem(VIEW_KEY, view);
+}
+
+function createMangaItem(number = mangaItems.length + 1) {
+  const icons = ["\u2605", "\u25c7", "\u266a", "\u25cb", "\u25ce", "\u25b3", "\u25a1", "\u2726", "\uff0b"];
+
+  return {
+    title: `\u65b0\u3057\u3044\u6f2b\u753b ${number}`,
+    url: "",
+    icon: icons[(number - 1) % icons.length],
+    iconUrl: "",
+    episode: 0,
+    total: 1,
+  };
 }
 
 function safeUrl(url) {
@@ -120,9 +143,9 @@ function safeUrl(url) {
   return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
 }
 
-function updateActiveButton(count) {
+function updateActiveButton(view) {
   buttons.forEach((button) => {
-    button.classList.toggle("active", Number(button.dataset.count) === count);
+    button.classList.toggle("active", button.dataset.view === view);
   });
 }
 
@@ -132,6 +155,11 @@ function updateProgress(card, item) {
   const progress = Math.min(100, Math.round((episode / total) * 100));
   card.querySelector(".progress-fill").style.setProperty("--progress", `${progress}%`);
   card.querySelector(".total-display").textContent = total;
+}
+
+function updateSummary() {
+  const updatedCount = mangaItems.filter((item) => Number(item.episode) > 0).length;
+  summaryText.textContent = `${mangaItems.length}\u4f5c\u54c1\u4e2d ${updatedCount}\u4f5c\u54c1\u3092\u66f4\u65b0\u6e08\u307f`;
 }
 
 function updateIcon(iconElement, item) {
@@ -155,13 +183,13 @@ function updateIcon(iconElement, item) {
   });
 }
 
-function renderCards(count) {
-  currentCount = count;
-  grid.classList.toggle("list", count === 9);
+function renderCards(view = currentView) {
+  currentView = view;
+  grid.classList.toggle("list", view === "list");
   grid.replaceChildren();
-  updateActiveButton(count);
+  updateActiveButton(view);
 
-  mangaItems.slice(0, count).forEach((item, index) => {
+  mangaItems.forEach((item, index) => {
     const card = template.content.cloneNode(true);
     const article = card.querySelector(".manga-card");
     const openLink = card.querySelector(".open-link");
@@ -195,6 +223,7 @@ function renderCards(count) {
     titleInput.addEventListener("input", () => {
       mangaItems[index].title = titleInput.value;
       saveItems();
+      renderLibrary();
     });
 
     urlInput.addEventListener("input", () => {
@@ -213,6 +242,7 @@ function renderCards(count) {
       mangaItems[index].episode = Math.max(0, Number(episodeInput.value) || 0);
       updateProgress(article, mangaItems[index]);
       saveItems();
+      updateSummary();
     });
 
     totalInput.addEventListener("input", () => {
@@ -225,12 +255,57 @@ function renderCards(count) {
   });
 }
 
+function renderLibrary() {
+  libraryList.replaceChildren();
+
+  mangaItems.forEach((item, index) => {
+    const row = document.createElement("div");
+    const title = document.createElement("span");
+    const deleteButton = document.createElement("button");
+
+    row.className = "library-row";
+    title.className = "library-title";
+    title.textContent = item.title || `\u6f2b\u753b ${index + 1}`;
+    deleteButton.className = "delete-manga-button";
+    deleteButton.type = "button";
+    deleteButton.textContent = "\u524a\u9664";
+    deleteButton.addEventListener("click", () => {
+      const confirmed = window.confirm(`\u300c${title.textContent}\u300d\u3092\u524a\u9664\u3057\u307e\u3059\u304b\uff1f`);
+      if (!confirmed) return;
+
+      mangaItems.splice(index, 1);
+      saveItems();
+      renderLibrary();
+      renderCards();
+      updateSummary();
+    });
+
+    row.append(title, deleteButton);
+    libraryList.append(row);
+  });
+}
+
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
-    const count = Number(button.dataset.count);
-    saveViewCount(count);
-    renderCards(count);
+    const view = button.dataset.view;
+    saveViewMode(view);
+    renderCards(view);
   });
 });
 
-renderCards(currentCount);
+appSettingsButton.addEventListener("click", () => {
+  const isOpen = libraryPanel.classList.toggle("open");
+  appSettingsButton.setAttribute("aria-expanded", String(isOpen));
+});
+
+addMangaButton.addEventListener("click", () => {
+  mangaItems.push(createMangaItem());
+  saveItems();
+  renderLibrary();
+  renderCards();
+  updateSummary();
+});
+
+renderLibrary();
+updateSummary();
+renderCards(currentView);
