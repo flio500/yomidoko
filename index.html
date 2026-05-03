@@ -14,7 +14,7 @@
             <p class="date-label">&#20170;&#26085;&#12398;&#35501;&#26360;&#12513;&#12514;</p>
             <h1>&#12424;&#12415;&#12393;&#12371;</h1>
           </div>
-          <button class="icon-button" type="button" aria-label="&#35373;&#23450;">
+          <button class="icon-button" id="appSettingsButton" type="button" aria-label="&#20316;&#21697;&#31649;&#29702;&#12434;&#38283;&#12367;" aria-expanded="false">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Zm8.2 3.8c0-.5-.05-.98-.15-1.45l2.02-1.48-2.02-3.5-2.4.98c-.72-.62-1.55-1.1-2.48-1.42L14.9 2.5h-4.04l-.28 2.63c-.9.32-1.74.8-2.46 1.42l-2.43-.98-2.02 3.5 2.04 1.48a7.6 7.6 0 0 0 0 2.9l-2.04 1.48 2.02 3.5 2.43-.98c.72.62 1.55 1.1 2.46 1.42l.28 2.63h4.04l.28-2.63c.93-.32 1.76-.8 2.48-1.42l2.4.98 2.02-3.5-2.02-1.48c.1-.47.15-.95.15-1.45Z" />
             </svg>
@@ -24,7 +24,7 @@
         <section class="hero" aria-label="&#35501;&#26360;&#29366;&#27841;">
           <div class="hero-copy">
             <p>&#27425;&#12395;&#35501;&#12416;&#35441;&#12434;&#12289;&#12377;&#12368;&#24605;&#12356;&#20986;&#12379;&#12427;&#12290;</p>
-            <strong>9&#20316;&#21697;&#20013; 6&#20316;&#21697;&#12434;&#26356;&#26032;&#28168;&#12415;</strong>
+            <strong id="summaryText">9&#20316;&#21697;&#20013; 6&#20316;&#21697;&#12434;&#26356;&#26032;&#28168;&#12415;</strong>
           </div>
           <div class="hero-illustration" aria-hidden="true">
             <svg viewBox="0 0 160 130">
@@ -39,10 +39,10 @@
           </div>
         </section>
 
-        <section class="controls" aria-label="&#34920;&#31034;&#20214;&#25968;">
+        <section class="controls" aria-label="&#34920;&#31034;&#24418;&#24335;">
           <span>&#34920;&#31034;</span>
-          <div class="segmented" role="group" aria-label="&#28459;&#30011;&#12398;&#34920;&#31034;&#25968;">
-            <button class="segment active" type="button" data-count="4" aria-label="4&#12388;&#34920;&#31034;">
+          <div class="segmented" role="group" aria-label="&#28459;&#30011;&#12398;&#34920;&#31034;&#24418;&#24335;">
+            <button class="segment active" type="button" data-view="grid" aria-label="2&#215;2&#12459;&#12540;&#12489;&#34920;&#31034;">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <rect x="4" y="4" width="6" height="6" rx="1.5" />
                 <rect x="14" y="4" width="6" height="6" rx="1.5" />
@@ -50,7 +50,7 @@
                 <rect x="14" y="14" width="6" height="6" rx="1.5" />
               </svg>
             </button>
-            <button class="segment" type="button" data-count="9" aria-label="9&#20316;&#21697;&#12434;&#12522;&#12473;&#12488;&#34920;&#31034;">
+            <button class="segment" type="button" data-view="list" aria-label="&#12522;&#12473;&#12488;&#34920;&#31034;">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <rect x="4" y="5" width="4" height="4" rx="1" />
                 <rect x="4" y="10" width="4" height="4" rx="1" />
@@ -61,6 +61,14 @@
               </svg>
             </button>
           </div>
+        </section>
+
+        <section class="library-panel" id="libraryPanel" aria-label="&#20316;&#21697;&#31649;&#29702;">
+          <div class="library-head">
+            <strong>&#20316;&#21697;&#31649;&#29702;</strong>
+            <button class="add-manga-button" id="addMangaButton" type="button">&#26032;&#35215;&#36861;&#21152;</button>
+          </div>
+          <div class="library-list" id="libraryList"></div>
         </section>
 
         <section class="manga-grid" id="mangaGrid" aria-live="polite"></section>
