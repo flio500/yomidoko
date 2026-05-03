@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>&#12424;&#12415;&#12393;&#12371; - &#28459;&#30011;&#35501;&#20102;&#12513;&#12514;</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="&#28459;&#30011;&#35501;&#20102;&#12513;&#12514;&#12450;&#12503;&#12522;">
+      <section class="app-screen">
+        <header class="topbar">
+          <div>
+            <p class="date-label">&#20170;&#26085;&#12398;&#35501;&#26360;&#12513;&#12514;</p>
+            <h1>&#12424;&#12415;&#12393;&#12371;</h1>
+          </div>
+          <button class="icon-button" type="button" aria-label="&#35373;&#23450;">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Zm8.2 3.8c0-.5-.05-.98-.15-1.45l2.02-1.48-2.02-3.5-2.4.98c-.72-.62-1.55-1.1-2.48-1.42L14.9 2.5h-4.04l-.28 2.63c-.9.32-1.74.8-2.46 1.42l-2.43-.98-2.02 3.5 2.04 1.48a7.6 7.6 0 0 0 0 2.9l-2.04 1.48 2.02 3.5 2.43-.98c.72.62 1.55 1.1 2.46 1.42l.28 2.63h4.04l.28-2.63c.93-.32 1.76-.8 2.48-1.42l2.4.98 2.02-3.5-2.02-1.48c.1-.47.15-.95.15-1.45Z" />
+            </svg>
+          </button>
+        </header>
+
+        <section class="hero" aria-label="&#35501;&#26360;&#29366;&#27841;">
+          <div class="hero-copy">
+            <p>&#27425;&#12395;&#35501;&#12416;&#35441;&#12434;&#12289;&#12377;&#12368;&#24605;&#12356;&#20986;&#12379;&#12427;&#12290;</p>
+            <strong>9&#20316;&#21697;&#20013; 6&#20316;&#21697;&#12434;&#26356;&#26032;&#28168;&#12415;</strong>
+          </div>
+          <div class="hero-illustration" aria-hidden="true">
+            <svg viewBox="0 0 160 130">
+              <path class="sun" d="M127 27c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16 7.2-16 16-16Z" />
+              <path class="leaf leaf-a" d="M34 91c-12-20-7-42 12-55 8 22 1 42-12 55Z" />
+              <path class="leaf leaf-b" d="M52 98c9-19 27-28 48-22-11 19-28 29-48 22Z" />
+              <path class="book" d="M35 49c24-7 43-2 56 13 15-12 34-15 57-7v51c-23-8-42-5-57 7-13-15-32-20-56-13V49Z" />
+              <path class="book-page" d="M91 62v51" />
+              <path class="line" d="M48 64c12-2 23 0 32 6M48 78c12-2 23 0 32 6M103 70c10-5 21-6 33-3M103 84c10-5 21-6 33-3" />
+              <path class="spark" d="M22 32l4 7 7 4-7 4-4 7-4-7-7-4 7-4 4-7Z" />
+            </svg>
+          </div>
+        </section>
+
+        <section class="controls" aria-label="&#34920;&#31034;&#20214;&#25968;">
+          <span>&#34920;&#31034;</span>
+          <div class="segmented" role="group" aria-label="&#28459;&#30011;&#12398;&#34920;&#31034;&#25968;">
+            <button class="segment active" type="button" data-count="4" aria-label="4&#12388;&#34920;&#31034;">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="4" y="4" width="6" height="6" rx="1.5" />
+                <rect x="14" y="4" width="6" height="6" rx="1.5" />
+                <rect x="4" y="14" width="6" height="6" rx="1.5" />
+                <rect x="14" y="14" width="6" height="6" rx="1.5" />
+              </svg>
+            </button>
+            <button class="segment" type="button" data-count="9" aria-label="9&#20316;&#21697;&#12434;&#12522;&#12473;&#12488;&#34920;&#31034;">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="4" y="5" width="4" height="4" rx="1" />
+                <rect x="4" y="10" width="4" height="4" rx="1" />
+                <rect x="4" y="15" width="4" height="4" rx="1" />
+                <rect x="10" y="5.5" width="10" height="3" rx="1.5" />
+                <rect x="10" y="10.5" width="10" height="3" rx="1.5" />
+                <rect x="10" y="15.5" width="10" height="3" rx="1.5" />
+              </svg>
+            </button>
+          </div>
+        </section>
+
+        <section class="manga-grid" id="mangaGrid" aria-live="polite"></section>
+      </section>
+    </main>
+
+    <template id="mangaCardTemplate">
+      <article class="manga-card">
+        <div class="card-head">
+          <button class="manga-icon" type="button" aria-label="&#12450;&#12452;&#12467;&#12531;&#30011;&#20687;URL&#12434;&#32232;&#38598;" aria-expanded="false"></button>
+          <div class="card-actions">
+            <a class="open-link" target="_blank" rel="noreferrer" aria-label="WEB&#28459;&#30011;&#12434;&#38283;&#12367;">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 5h11v11M19 5 7 17" />
+              </svg>
+            </a>
+            <button class="settings-toggle" type="button" aria-label="&#35373;&#23450;&#12434;&#38283;&#12367;" aria-expanded="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Zm7.3 3.8c0-.4-.04-.8-.12-1.18l1.7-1.24-1.7-2.94-2.02.82c-.6-.52-1.3-.92-2.08-1.2L14.84 4h-3.68l-.24 2.26c-.78.28-1.48.68-2.08 1.2l-2.02-.82-1.7 2.94 1.7 1.24a6.6 6.6 0 0 0 0 2.36l-1.7 1.24 1.7 2.94 2.02-.82c.6.52 1.3.92 2.08 1.2l.24 2.26h3.68l.24-2.26c.78-.28 1.48-.68 2.08-1.2l2.02.82 1.7-2.94-1.7-1.24c.08-.38.12-.78.12-1.18Z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <label class="field-label">
+          <span>&#12479;&#12452;&#12488;&#12523;</span>
+          <input class="manga-title-input" type="text" autocomplete="off" />
+        </label>
+        <div class="progress-row">
+          <label class="episode-field">
+            <span>&#35501;&#20102;</span>
+            <input class="episode-input" type="number" min="0" step="1" inputmode="numeric" />
+            <span class="total-hint">/ <span class="total-display"></span>&#35441;</span>
+          </label>
+          <div class="progress-track"><span class="progress-fill"></span></div>
+        </div>
+        <div class="settings-panel">
+          <label class="field-label">
+            <span>WEB&#28459;&#30011;&#12522;&#12531;&#12463;</span>
+            <input class="manga-url-input" type="url" inputmode="url" autocomplete="off" />
+          </label>
+          <label class="field-label icon-url-field">
+            <span>&#12450;&#12452;&#12467;&#12531;&#30011;&#20687;URL</span>
+            <input class="icon-url-input" type="url" inputmode="url" autocomplete="off" />
+          </label>
+          <label class="field-label total-field">
+            <span>&#32207;&#35441;&#25968;</span>
+            <input class="total-input" type="number" min="1" step="1" inputmode="numeric" />
+          </label>
+        </div>
+      </article>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>

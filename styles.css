@@ -1,0 +1,593 @@
+:root {
+  color-scheme: light;
+  --ink: #27323a;
+  --muted: #6d7a80;
+  --paper: #fffdf8;
+  --soft: #f3efe6;
+  --line: #ded8c9;
+  --mint: #84b9a2;
+  --sage: #dce9dd;
+  --coral: #e7967b;
+  --sky: #9dc9d5;
+  --amber: #efc66f;
+  --shadow: 0 20px 50px rgba(56, 68, 64, .16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at top left, rgba(132, 185, 162, .2), transparent 34%),
+    linear-gradient(150deg, #eef5f0 0%, #f8f2e8 52%, #edf5f7 100%);
+  color: var(--ink);
+  font-family: "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", Meiryo, system-ui, sans-serif;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.phone-shell {
+  width: min(100vw, 430px);
+  min-height: 100vh;
+  padding: 18px;
+  display: grid;
+  place-items: center;
+}
+
+.app-screen {
+  width: 100%;
+  min-height: min(900px, calc(100vh - 36px));
+  border: 1px solid rgba(92, 109, 102, .18);
+  border-radius: 32px;
+  padding: 22px 18px 20px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.topbar,
+.controls,
+.card-head,
+.card-actions,
+.episode-field,
+.progress-row {
+  display: flex;
+  align-items: center;
+}
+
+.topbar {
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.date-label {
+  margin: 0 0 3px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.icon-button {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 14px;
+  background: var(--soft);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.icon-button svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.hero {
+  min-height: 146px;
+  margin: 20px 0 16px;
+  display: grid;
+  grid-template-columns: 1fr 150px;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 17px 8px 17px 17px;
+  background: linear-gradient(135deg, #edf6ed, #fff7e8);
+}
+
+.hero-copy p {
+  margin: 0 0 10px;
+  color: #52636a;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+.hero-copy strong {
+  display: block;
+  max-width: 160px;
+  font-size: 20px;
+  line-height: 1.35;
+}
+
+.hero-illustration {
+  width: 100%;
+  aspect-ratio: 160 / 130;
+}
+
+.hero-illustration svg {
+  width: 100%;
+  height: 100%;
+}
+
+.book {
+  fill: #fffdf8;
+  stroke: #40535a;
+  stroke-width: 5;
+  stroke-linejoin: round;
+}
+
+.book-page,
+.line {
+  fill: none;
+  stroke: #40535a;
+  stroke-linecap: round;
+  stroke-width: 4;
+}
+
+.sun {
+  fill: var(--amber);
+}
+
+.leaf-a {
+  fill: var(--mint);
+}
+
+.leaf-b {
+  fill: var(--sky);
+}
+
+.spark {
+  fill: var(--coral);
+}
+
+.controls {
+  justify-content: space-between;
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.segmented {
+  display: grid;
+  grid-template-columns: repeat(2, 46px);
+  gap: 4px;
+  padding: 4px;
+  border-radius: 15px;
+  background: var(--soft);
+}
+
+.segment {
+  display: grid;
+  place-items: center;
+  min-height: 34px;
+  border: 0;
+  border-radius: 11px;
+  background: transparent;
+  color: #5d6b70;
+  font: inherit;
+  cursor: pointer;
+}
+
+.segment svg {
+  width: 21px;
+  height: 21px;
+  fill: currentColor;
+}
+
+.segment.active {
+  background: #ffffff;
+  color: var(--ink);
+  box-shadow: 0 4px 12px rgba(58, 67, 64, .12);
+}
+
+.manga-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.manga-grid.list {
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.manga-card {
+  min-height: 154px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 12px;
+  background: #fffefa;
+}
+
+.card-head {
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.card-actions {
+  align-items: center;
+  gap: 9px;
+}
+
+.manga-icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  border: 2px solid rgba(39, 50, 58, .1);
+  padding: 0;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--ink);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.manga-icon:focus-visible {
+  outline: 3px solid rgba(132, 185, 162, .36);
+  outline-offset: 2px;
+}
+
+.manga-icon.has-image {
+  border-color: rgba(39, 50, 58, .08);
+  background: #f7f2e8;
+}
+
+.manga-icon img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.open-link,
+.settings-toggle {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  color: #8a9698;
+}
+
+.open-link {
+  text-decoration: none;
+}
+
+.settings-toggle {
+  display: grid;
+  place-items: center;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.open-link svg,
+.settings-toggle svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.4;
+}
+
+.settings-toggle svg {
+  fill: currentColor;
+  stroke: none;
+}
+
+.field-label {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+  margin-bottom: 7px;
+}
+
+.field-label span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.field-label input,
+.episode-field input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: #f7f2e8;
+  color: var(--ink);
+  font: inherit;
+  outline: none;
+}
+
+.field-label input {
+  height: 34px;
+  padding: 0 9px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.manga-url-input,
+.icon-url-input,
+.total-input {
+  color: #5d6b70;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.settings-panel {
+  display: none;
+  gap: 7px;
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px solid rgba(222, 216, 201, .78);
+}
+
+.manga-card.show-settings {
+  min-height: 295px;
+}
+
+.manga-card.show-settings .settings-panel {
+  display: grid;
+}
+
+.field-label input:focus,
+.episode-field input:focus {
+  border-color: rgba(132, 185, 162, .9);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(132, 185, 162, .18);
+}
+
+.progress-row {
+  display: grid;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.episode-field {
+  gap: 5px;
+  color: #506066;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.total-hint {
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.episode-field input {
+  width: 58px;
+  height: 30px;
+  padding: 0 6px;
+  text-align: center;
+}
+
+.episode-field input::-webkit-outer-spin-button,
+.episode-field input::-webkit-inner-spin-button {
+  margin: 0;
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e9e3d6;
+}
+
+.progress-fill {
+  display: block;
+  width: var(--progress);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--mint), var(--coral));
+}
+
+.manga-card:nth-child(3n + 1) .manga-icon {
+  background: #e9f3ec;
+}
+
+.manga-card:nth-child(3n + 2) .manga-icon {
+  background: #fff0e8;
+}
+
+.manga-card:nth-child(3n) .manga-icon {
+  background: #eaf5f7;
+}
+
+.manga-grid.list .manga-card {
+  position: relative;
+  min-height: 96px;
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) 76px;
+  grid-template-rows: repeat(2, auto);
+  align-items: center;
+  column-gap: 10px;
+  row-gap: 6px;
+  border-radius: 16px;
+  padding: 10px 10px 10px 12px;
+}
+
+.manga-grid.list .card-head {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  justify-content: center;
+  margin: 0;
+}
+
+.manga-grid.list .manga-icon {
+  width: 40px;
+  height: 40px;
+  flex-basis: 40px;
+  border-radius: 12px;
+  font-size: 19px;
+}
+
+.manga-grid.list .open-link {
+  width: 18px;
+  height: 18px;
+}
+
+.manga-grid.list .settings-toggle {
+  width: 18px;
+  height: 18px;
+}
+
+.manga-grid.list .card-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.manga-grid.list .field-label {
+  grid-column: 2;
+  margin: 0;
+}
+
+.manga-grid.list .field-label span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.manga-grid.list .field-label input {
+  height: 31px;
+  padding: 0 9px;
+  font-size: 13px;
+}
+
+.manga-grid.list .manga-url-input {
+  height: 28px;
+  font-size: 10px;
+}
+
+.manga-grid.list .progress-row {
+  grid-column: 3;
+  grid-row: 1 / 3;
+  margin: 18px 0 0;
+  gap: 7px;
+}
+
+.manga-grid.list .episode-field {
+  justify-content: flex-end;
+  font-size: 11px;
+}
+
+.manga-grid.list .episode-field input {
+  width: 44px;
+  height: 27px;
+  padding: 0 4px;
+}
+
+.manga-grid.list .settings-panel {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+}
+
+.manga-grid.list .settings-panel .field-label {
+  grid-column: auto;
+}
+
+.manga-grid.list .settings-panel .field-label span {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+}
+
+.manga-grid.list .manga-card.show-settings {
+  min-height: 214px;
+  grid-template-rows: repeat(3, auto);
+}
+
+.manga-grid.list .manga-card.show-settings .card-head,
+.manga-grid.list .manga-card.show-settings .progress-row {
+  grid-row: 1 / 4;
+}
+
+@media (max-width: 370px) {
+  .phone-shell {
+    padding: 0;
+  }
+
+  .app-screen {
+    min-height: 100vh;
+    border-radius: 0;
+    border: 0;
+  }
+
+  .hero {
+    grid-template-columns: 1fr 120px;
+  }
+
+  .manga-grid {
+    gap: 10px;
+  }
+
+  .manga-card {
+    padding: 10px;
+  }
+
+  .manga-grid.list {
+    gap: 8px;
+  }
+
+  .manga-grid.list .manga-card {
+    grid-template-columns: 40px minmax(0, 1fr) 68px;
+    column-gap: 8px;
+    padding: 9px;
+  }
+
+  .manga-grid.list .manga-icon {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+  }
+
+  .manga-grid.list .field-label input {
+    padding: 0 7px;
+  }
+}
